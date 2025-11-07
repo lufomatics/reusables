@@ -322,10 +322,11 @@ jobs:
         run: &run_script_step |
           STEP_ID="${GITHUB_ACTION:-null}"
           for cmd in ${RUN_CMDS:-${STEP_ID^}}; do
-            node -e "process.exit(require('./${MANIFEST_FILE}').scripts?.['${cmd}'] ? 0 : 1)" 2>/dev/null && 
-              echo "Running ${GITHUB_ACTION:-null} check via script '${cmd}'..." &&
-              ${PACKAGE_MANAGER} run ${cmd} &&
-              exit
+            if node -e "process.exit(require('./${MANIFEST_FILE}').scripts?.['${cmd}'] ? 0 : 1)" 2>/dev/null; then
+              echo "Running ${GITHUB_ACTION:-null} check via script '${cmd}'..."
+              ${PACKAGE_MANAGER} run ${cmd}
+              exit $?
+            fi
           done
           echo "::error title=${STEP_ID^} Check Script Not Found::No ${STEP_ID^} check script found. Please define one of the following scripts in your 'package.json': ${RUN_CMDS// /, }."
           exit 1
