@@ -2,14 +2,41 @@
   "name": "Universal Codespace",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 
-  "remoteEnv": {
-    "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+  // Sets or overrides environment variables on the container itself. 
+  // These will be static (must rebuild to update), and accessible to all processes.
+  "containerEnv": {
     "HTTP_PROXY": "${localEnv:HTTP_PROXY}",
     "HTTPS_PROXY": "${localEnv:HTTPS_PROXY}",
     "NO_PROXY": "${localEnv:NO_PROXY}"
   },
 
-  "postCreateCommand": ".devcontainer/post-create.sh",
+  // Sets or overrides environment variables for the devcontainer supporting service/tool (VS Code) and related 
+  // sub-processes (terminals, tasks, debug, etc).
+  "remoteEnv": {
+    "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+  },
+  
+  // Runs once when creating the container, immediately after first start (after initializeCommand).
+  // Good for caching or prebuilding a container (access to repo/org scoped secrets and permissions; not user).
+  // "onCreateCommand": "",
+  
+  // Runs when creating the container, after onCreateCommand (rerun during creation when workspace content was updated).
+  // Good for refreshing cached or prebuilt containers (access to repo/org scoped secrets and permissions; not user).
+  // "updateContentCommand": "",
+
+  // Runs upon container creation, after updateContentCommand, once it's assigned to a user for the first time.
+  // Last of 3 commands that finalizes container setup (access to user scoped secrets and permissions). 
+  // "postCreateCommand": ".devcontainer/post-create.sh",
+
+  // Runs each time the container is successfully (re-)started.
+  // "postStartCommand": "",
+
+  // Runs each time a tool has successfully attached to the container.
+  // "postAttachCommand": "",
+
+  // Set which command must complete before any tool connects to the container, and interactive use is allowed,
+  // continuing execution in the background while the UI is starting up (default: updateContentCommand).
+  // "waitFor": "updateContentCommand",
 
   "features": {
     // "ghcr.io/devcontainers/features/common-utils:2": {}, // Already included in base:ubuntu
