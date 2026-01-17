@@ -1,19 +1,19 @@
 {
   "name": "Universal Codespace",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-
-  // Sets or overrides environment variables on the container itself. 
-  // These will be static (must rebuild to update), and accessible to all processes.
-  "containerEnv": {
-    "HTTP_PROXY": "${localEnv:HTTP_PROXY}",
-    "HTTPS_PROXY": "${localEnv:HTTPS_PROXY}",
-    "NO_PROXY": "${localEnv:NO_PROXY}"
-  },
-
+  
   // Sets or overrides environment variables for the devcontainer supporting service/tool (VS Code) and related 
   // sub-processes (terminals, tasks, debug, etc).
   "remoteEnv": {
-    "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+    "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}"
+  },
+  
+  // Sets or overrides environment variables on the container itself. 
+  // These will be static (must rebuild to update), and accessible to all processes.
+  "containerEnv": {
+    "http_proxy": "${localEnv:HTTP_PROXY}",
+    "https_proxy": "${localEnv:HTTPS_PROXY}",
+    "no_proxy": "${localEnv:NO_PROXY}"
   },
   
   // Runs once when creating the container, immediately after first start (after initializeCommand).
