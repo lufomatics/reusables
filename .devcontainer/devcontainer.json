@@ -56,6 +56,7 @@
 
     "vscode": {
       "extensions": [
+        "ms-vscode-remote.vscode-remote-extensionpack", // Remote Development Extension Pack
         "github.vscode-pull-request-github", // Manage GitHub PRs and Issues
         "github.copilot", // GitHub Copilot + Copilot Chat
         "github.vscode-github-actions", // GitHub Actions integration
